@@ -52,6 +52,9 @@ button {
     padding: 5px;
 }
 
+#backbutton {
+    margin-top: 15px;
+}
 
 #pwdLength {
     float: left;

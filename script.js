@@ -103,3 +103,7 @@ genBtn.addEventListener("click", function(){
     }
 
 });
+
+backBtn.addEventListener("click", function(){
+container.classList.remove("flipped");
+});
