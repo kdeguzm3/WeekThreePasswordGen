@@ -9,6 +9,8 @@ let backBtn = document.querySelector("#backBtn");
 let presentBox = document.querySelector("#presentBox");
 let message = document.querySelector("#message");
 let container = document.querySelector("#container");
+let fancyBtn = document.querySelector('#fancyButton');
+
 //Declare Password Arrays
 let lowCapsArray = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v","w","x","y","z"];
 let uppCapsArray = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
@@ -106,4 +108,8 @@ genBtn.addEventListener("click", function(){
 
 backBtn.addEventListener("click", function(){
 container.classList.remove("flipped");
+});
+
+fancyBtn.addEventListener("click", function(){
+container.classList.toggle("fancy");
 });

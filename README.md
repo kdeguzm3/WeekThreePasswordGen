@@ -18,3 +18,11 @@ If valid, generate password:
     *pull random values from mixed array until requested length is reached
     
     *Display the generated password to the user
+
+## Fancy Button
+
+add a div called Fancify that will:
+
+    Add an image with a blend mode as the card front
+
+    translate the Z coordinates of the card contents so they are detached from the card during the flip 
