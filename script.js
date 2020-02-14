@@ -1,81 +1,105 @@
-const passwordDisplay = document.querySelector("#password");
-const passwordBtn = document.querySelector("#generate");
-
-let passwordSize;
-let generated = "";
-let lowCaps = false;
-let highCaps = false;
-let numCaps = false;
-let spcCaps = false;
-let mixCaps;
-
+//Declare handlers
+let length = document.querySelector("#passwordLength");
+let lowCaps = document.querySelector("#lowYes");
+let uppCaps = document.querySelector("#uppYes");
+let numCaps = document.querySelector("#numYes");
+let spcCaps = document.querySelector("#spcYes");
+let genBtn = document.querySelector("#generate");
+let backBtn = document.querySelector("#backBtn");
+let presentBox = document.querySelector("#presentBox");
+let message = document.querySelector("#message");
+let container = document.querySelector("#container");
+//Declare Password Arrays
 let lowCapsArray = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v","w","x","y","z"];
-let highCapsArray = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+let uppCapsArray = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 let numCapsArray = ["1","2","3","4","5","6","6","7","8","9","10"];
 let spcCapsArray = ["!","@","#","$","%","&","*"];
 let mixCapsArray = [];
 
-passwordBtn.addEventListener("click", function(){
-  mixCapsArray.length = 0;
-  generated = "";
-  getPassword()
-});
+//fn Validate Parameters for password
 
-
-function getPassword(){
-do {
-  passwordSize = parseInt(prompt("Choose your password length: 8 - 128"));
-console.log(passwordSize);
-}
-while (passwordSize < 8 || passwordSize > 128);
-
-
-  lowCaps = confirm ("Do you want it to contain smallcaps?");
-  highCaps = confirm ("Do you want it to contain capital characters?");
-  numCaps = confirm ("Do you want it to contain numbers?");
-  spcCaps = confirm ("Do you want it to contain special characters?");
-  console.log(lowCaps);
-
-  if (lowCaps == true){
-    mixCapsArray = mixCapsArray.concat(lowCapsArray);
-  }
-
-  if (highCaps == true){
-    mixCapsArray = mixCapsArray.concat(highCapsArray);
-  }
-
-  if (numCaps == true){
-    mixCapsArray = mixCapsArray.concat(numCapsArray);
-  }
-
-  if (spcCaps == true){
-    mixCapsArray = mixCapsArray.concat(spcCapsArray);
-  }
-  console.log(mixCapsArray);
-
-  for (i = 0; i < passwordSize; i++){
-
-    if (i == 1 && lowCaps == true){
-     lowCaps = Math.floor(Math.random() * lowCapsArray.length);
-      generated += lowCapsArray[lowCaps];
+function isPasswordValid(){
+    message.textContent ="";
+    if (isNaN(parseInt(length.value))){
+    message.textContent += "Password Length is not a number! ";
+    message.setAttribute("style", "background-color: red; color: white;");
+    return false;
     }
-    else if (i == 3 && highCaps == true){
-      highCaps = Math.floor(Math.random() * highCapsArray.length);
-      generated += highCapsArray[highCaps];
+    else if (parseInt(length.value) < 8 || parseInt(length.value) > 128){
+        message.textContent += "Length should be within 8 - 128! ";
+        message.setAttribute("style", "background-color: red; color: white;");
+        return false;
     }
-    else if (i == 7 && numCapsArray == true){
-      numCaps = Math.floor(Math.random() * numCapsArray.length);
-      generated += numCapsArray[spcCaps];
-    }
-    else if (i == 9 && spcCapsArray == true){
-      spcCaps = Math.floor(Math.random() * spcCapsArray.length);
-      generated += spcCapsArray[spcCaps];
+    
+    let x = (lowCaps.checked + uppCaps.checked + numCaps.checked + spcCaps.checked);
+    if (x === 0){
+        message.textContent += "You need at least one character type! ";
+        message.setAttribute("style", "background-color: red; color: white;");
+        return false;
     }
     else {
-      mixCaps = Math.floor(Math.random() * mixCapsArray.length);
-      generated += mixCapsArray[mixCaps];
+        return true;
+    }
+}
+
+//fn Make the password
+function generate(){
+    let generated = "";
+    let generateLength = parseInt(length.value);
+    if (lowCaps.checked == true){
+        mixCapsArray = mixCapsArray.concat(lowCapsArray);
+      }
+    
+      if (uppCaps.checked == true){
+        mixCapsArray = mixCapsArray.concat(uppCapsArray);
+      }
+    
+      if (numCaps.checked == true){
+        mixCapsArray = mixCapsArray.concat(numCapsArray);
+      }
+    
+      if (spcCaps.checked == true){
+        mixCapsArray = mixCapsArray.concat(spcCapsArray);
+      }
+
+      for (let i = 0; i < generateLength; i++){
+          if (i == 1 && lowCaps.checked == true){
+              let z = Math.floor(Math.random() * lowCapsArray.length);
+              generated += lowCapsArray[z];
+          }
+          else if (i == 3 && uppCaps.checked == true){
+            let z = Math.floor(Math.random() * uppCapsArray.length);
+            generated += uppCapsArray[z];
+        }
+        else if (i == 5 && spcCaps.checked == true){
+            let z = Math.floor(Math.random() * spcCapsArray.length);
+            generated += spcCapsArray[z];
+        }
+        else if (i == 7 && numCaps.checked == true){
+            let z = Math.floor(Math.random() * numCapsArray.length);
+            generated += numCapsArray[z];
+        }
+        else {
+            let z = Math.floor(Math.random() * mixCapsArray.length);
+            generated += mixCapsArray[z];
+        }
+
+
+      }
+
+        return generated;
+      
+}
+
+//fn Event Listener
+
+genBtn.addEventListener("click", function(){
+    event.preventDefault();
+    let x = isPasswordValid();
+    if (x == true) {
+        let y = generate();
+        presentBox.textContent = y;
+        container.classList.add("flipped");
     }
 
-    passwordDisplay.textContent = generated;
-  }
-}
+});

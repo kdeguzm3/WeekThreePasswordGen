@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<head>
+    <meta charset="UTF-8">
     <title>Password Generator</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>Password Generator</h1>
-      </header>
-      <div class="card">
-        <div class="card-header">
-          <h2>Generate a Password</h2>
-        </div>
-        <div class="card-body">
-          <textarea
-            readonly
-            id="password"
-            placeholder="Your Secure Password"
-            aria-label="Generated Password"
-          ></textarea>
-        </div>
-        <div class="card-footer">
-          <button id="generate" class="btn">Generate Password</button>
-        </div>
-      </div>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section id="main">
+        <section id="container">
+        <section id="front" class="card">
+            <section id="params">
+                <section id="pwdLength">
+                    <h1>Enter the length of your password:</h1>
+                    <input type="text" name="passwordLength" id="passwordLength" placeholder="8 - 128">
+                </section>
+                <section id="pwdContent">
+                    <input type="checkbox" name="lowYes"id="lowYes"><label for="lowYes">Lower Case Letters</label><br />
+                    <input type="checkbox" name="uppYes"id="uppYes"><label for="uppYes">Upper Case Letters</label><br />
+                    <input type="checkbox" name="spcYes"id="spcYes"><label for="spcYes">Special Characters</label><br />                    
+                    <input type="checkbox" name="numYes"id="numYes"><label for="numYes">Numbers</label><br />
+                </section>
+            </section>
+            <section id="genBtn"><p id="message"> </p></section>
+            <section id="button"><button id="generate">Generate Password</button></section>
+        </section>
+        <section id="back" class="card">
+            <h1>Your Password:</h1>
+            <section id="presentBox"></section>
+        </section>
     </div>
+    </section>
     <script src="script.js"></script>
-  </body>
+</body>
 </html>
